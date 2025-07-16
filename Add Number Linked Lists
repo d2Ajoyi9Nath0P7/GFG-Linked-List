@@ -1,0 +1,117 @@
+Node* addTwoLists(Node* num1, Node* num2)
+{
+    if(num1 == NULL || num2 == NULL)
+    {
+        if(num1 == NULL)
+        {
+            return num2;
+        }
+        else
+        {
+            return num1;
+        }
+    }
+
+    Node* first = num1;
+    Node* pre = NULL;
+    Node* curr = num1;
+    Node* nxt = num1->next;
+    if(num1 -> next == NULL)
+    {
+        pre = num1;
+    }
+    else
+    {
+        while(curr != NULL)
+        {
+            curr -> next = pre;
+            pre = curr;
+            curr = nxt;
+            nxt = nxt -> next;
+            if(nxt == NULL)
+            {
+                curr -> next = pre;
+                pre = curr;
+                break;
+            }
+        }
+    }
+
+    Node* one = pre;
+
+    Node* first2 = num2;
+    Node* pre2 = NULL;
+    Node* curr2 = num2;
+    Node* nxt2 = num2->next;
+
+    if(num2 -> next == NULL)
+    {
+        pre2 = num2;
+    }
+    else
+    {
+        while(curr2 != NULL)
+        {
+            curr2 -> next = pre2;
+            pre2 = curr2;
+            curr2 = nxt2;
+            nxt2 = nxt2 -> next;
+
+            if(nxt2 == NULL)
+            {
+                curr2 -> next = pre2;
+                pre2 = curr2;
+                break;
+            }
+        }
+    }
+
+
+    Node* two = pre2;
+    int carry = 0;
+
+    Node* ans = NULL;
+    int sum = 0;
+    Node* newNode;
+
+    while(one != NULL || two != NULL)
+    {
+        if(one != NULL)
+        {
+            sum += one -> data;//9
+            one = one -> next;
+        }
+        if(two != NULL)
+        {
+            sum += two -> data;//3
+            two = two -> next;
+        }
+        sum += carry;//12  15  12
+        int mod = sum % 10;//2    5     2
+        carry = sum / 10;//1     1    1
+        newNode = new Node(mod);//
+        newNode -> next = ans;//
+        ans = newNode;
+        sum = 0;
+    }
+
+    if(carry > 0)
+    {
+        newNode = new Node(carry);
+        newNode->next = ans;
+        ans = newNode;
+    }
+
+    while(1)
+    {
+        if(ans->data == 0)
+        {
+            ans = ans -> next;
+        }
+        else
+        {
+            return ans;
+        }
+    }
+    //return ans;
+}
