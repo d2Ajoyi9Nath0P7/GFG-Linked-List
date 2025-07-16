@@ -1,0 +1,30 @@
+Node* findFirstNode(Node* head)
+{
+    if(head == NULL)
+    {
+        return NULL;
+    }
+
+    Node* temp = head;
+    Node* fast = head;
+    Node* slow = head;
+    Node* result = NULL;
+
+    while(fast != NULL && fast -> next != NULL)
+    {
+        slow = slow -> next;
+        fast = fast -> next -> next;
+
+        if(slow == fast)
+        {
+            while(temp != slow)
+            {
+                temp = temp -> next;
+                slow = slow -> next;
+            }
+            return temp;
+        }
+    }
+
+    return NULL;
+}
